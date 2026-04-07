@@ -1,0 +1,154 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  text-align: left;
+}
+
+.dashboard-header {
+  margin-bottom: var(--spacing-2);
+}
+
+/* Goals Section */
+.goals-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+.goal-card {
+  flex: 1;
+  min-width: 200px;
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: var(--spacing-4);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.goal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-secondary);
+}
+
+.goal-card.active {
+  background: var(--bg-secondary);
+  border-color: var(--accent-primary);
+  box-shadow: var(--glow-primary);
+}
+
+.goal-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-primary);
+}
+
+.goal-card.active .goal-icon {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.goal-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-family: var(--font-sans);
+}
+.goal-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.stat-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-4);
+}
+
+.stat-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
+}
+
+.stat-value {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.stat-subtext {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: var(--spacing-2);
+}
+
+/* Weekly chart mockup */
+.weekly-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100px;
+  margin-top: auto;
+  padding-top: var(--spacing-4);
+}
+
+.chart-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  width: 12%;
+}
+
+.chart-bar {
+  width: 100%;
+  background: var(--accent-secondary);
+  border-radius: 4px 4px 0 0;
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+}
+
+.chart-bar:hover {
+  opacity: 1;
+  box-shadow: var(--glow-secondary);
+}
+
+.chart-day {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}

@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import Dashboard from './components/Dashboard';
+import Scanner from './components/Scanner';
+import ChatCoach from './components/ChatCoach';
 import './App.css';
 
 // Simple SVG Icons for the MVP (Phase 1)
@@ -64,16 +67,17 @@ function App() {
         </header>
         
         <main className="main-content">
-          <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
-            <h1>Welcome to EatWise</h1>
-            <p style={{ color: 'var(--text-secondary)' }}>
-              Your AI-powered smart eating companion.
-            </p>
-            <p style={{ marginTop: '1rem' }}>
-              Currently viewing: <strong style={{ color: 'var(--accent-primary)' }}>{activeTab}</strong>
-            </p>
-            {/* The actual views will be implemented here */}
-          </div>
+          {activeTab === 'home' && <Dashboard />}
+          {activeTab === 'scan' && <Scanner />}
+          {activeTab === 'chat' && <ChatCoach />}
+          {activeTab === 'swaps' && (
+            <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
+              <h2>Coming Soon</h2>
+              <p style={{ marginTop: '1rem' }}>
+                Food Swaps engine will be available here.
+              </p>
+            </div>
+          )}
         </main>
       </div>
 
