@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Dashboard from './components/Dashboard';
 import Scanner from './components/Scanner';
 import ChatCoach from './components/ChatCoach';
+import FoodSwaps from './components/FoodSwaps';
+import FloatingNudge from './components/FloatingNudge';
 import './App.css';
 
 // Simple SVG Icons for the MVP (Phase 1)
@@ -70,14 +72,7 @@ function App() {
           {activeTab === 'home' && <Dashboard />}
           {activeTab === 'scan' && <Scanner />}
           {activeTab === 'chat' && <ChatCoach />}
-          {activeTab === 'swaps' && (
-            <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
-              <h2>Coming Soon</h2>
-              <p style={{ marginTop: '1rem' }}>
-                Food Swaps engine will be available here.
-              </p>
-            </div>
-          )}
+          {activeTab === 'swaps' && <FoodSwaps />}
         </main>
       </div>
 
@@ -98,6 +93,8 @@ function App() {
           </a>
         ))}
       </nav>
+
+      <FloatingNudge />
     </div>
   );
 }
