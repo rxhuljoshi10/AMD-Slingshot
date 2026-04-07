@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { getChatResponse } from '../lib/gemini';
 import './ChatCoach.css';
 
 const SendIcon = () => (
@@ -27,26 +28,35 @@ export default function ChatCoach() {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!inputText.trim()) return;
 
-    const newUserMsg: Message = { id: Date.now().toString(), type: 'user', text: inputText };
+    const userText = inputText;
+    const newUserMsg: Message = { id: Date.now().toString(), type: 'user', text: userText };
+    
+    // Optimistic update
     setMessages(prev => [...prev, newUserMsg]);
     setInputText('');
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      setIsTyping(false);
-      let aiResponseText = "That's an interesting choice! Based on your 'Weight Loss' goal, I'd suggest pairing it with a large salad or swapping the carbs to keep you in a calorie deficit.";
-      
-      if (newUserMsg.text.toLowerCase().includes('donut')) {
-         aiResponseText = "A donut sounds great for a treat, but since your goal is Weight Loss and it's 10 AM, eating just a donut will spike your blood sugar and leave you hungry in an hour. How about a protein shake now, and a smaller sweet treat after lunch?";
-      }
+    try {
+      // The Gemini chat history strictly requires the first message to have the 'user' role.
+      // Since our active state starts with an AI greeting, we must slice that first message off.
+      const historyToSend = messages.slice(1).map(m => ({
+        role: m.type === 'ai' ? 'model' : 'user',
+        parts: [{ text: m.text }]
+      }));
 
-      const newAiMsg: Message = { id: Date.now().toString(), type: 'ai', text: aiResponseText };
+      // Call real API
+      const responseText = await getChatResponse(historyToSend, userText, 'General Health');
+      
+      const newAiMsg: Message = { id: Date.now().toString(), type: 'ai', text: responseText };
       setMessages(prev => [...prev, newAiMsg]);
-    }, 2000);
+    } catch (e) {
+      setMessages(prev => [...prev, { id: Date.now().toString(), type: 'ai', text: 'Error connecting to the Brain.' }]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   return (
